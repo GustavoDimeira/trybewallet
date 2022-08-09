@@ -39,7 +39,6 @@ class Login extends React.Component {
     this.setState({
       [type]: value,
     });
-    console.log(value);
     this.validationCamps();
   }
 
