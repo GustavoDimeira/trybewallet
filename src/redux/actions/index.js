@@ -5,6 +5,8 @@ export const GET_COIN = 'GET_COIN';
 
 export const GET_COIN_FAIL = 'GET_COIN_FAIL';
 
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+
 export const saveEmailAction = (email) => ({
   type: SAVE_EMAIL,
   email,
@@ -22,7 +24,6 @@ export function actionGetCoins() {
         const data = await response.json();
         const coins = Object.keys(data);
         const noUSDT = coins.filter((coin) => coin !== 'USDT');
-        console.log(noUSDT);
         return noUSDT;
       };
       const coins = await getCoins();
@@ -32,3 +33,8 @@ export function actionGetCoins() {
     }
   };
 }
+
+export const actionSaveExpenses = (infos) => ({
+  type: SAVE_EXPENSES,
+  infos,
+});
