@@ -59,12 +59,14 @@ class Login extends React.Component {
             value={ email }
             onChange={ ({ target }) => this.handleChange(target.type, target.value) }
             data-testid="email-input"
+            placeholder="Email"
           />
           <input
             type="password"
             value={ password }
             onChange={ ({ target }) => this.handleChange(target.type, target.value) }
             data-testid="password-input"
+            placeholder="Senha"
           />
           <button
             type="submit"
