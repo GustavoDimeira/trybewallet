@@ -32,8 +32,6 @@ class WalletForm extends Component {
     const { id } = this.state;
     const { saveExpenses } = this.props;
 
-    // pegar as infos da exchangeRates e colocar no state
-
     try {
       const getCoins = async () => {
         const response = await fetch('https://economia.awesomeapi.com.br/json/all');
@@ -45,10 +43,8 @@ class WalletForm extends Component {
         exchangeRates: coins,
       });
     } catch (error) {
-      console.log('deu ruim :(');
+      console.log('deu ruim :(', error);
     }
-
-    //
 
     saveExpenses(this.state);
 

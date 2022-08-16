@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { GET_COIN, SAVE_EXPENSES } from '../actions';
+import { GET_COIN, SAVE_EXPENSES, REMOVE_ITEM } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -27,6 +27,13 @@ const wallet = (state = INITIAL_STATE, action) => {
           tag: action.infos.tag,
           exchangeRates: action.infos.exchangeRates,
         },
+      ],
+    });
+  case REMOVE_ITEM:
+    return ({
+      ...state,
+      expenses: [
+        ...action.newItens,
       ],
     });
   default:

@@ -7,6 +7,8 @@ export const GET_COIN_FAIL = 'GET_COIN_FAIL';
 
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 
+export const REMOVE_ITEM = 'REMOVE_ITEM';
+
 export const saveEmailAction = (email) => ({
   type: SAVE_EMAIL,
   email,
@@ -37,4 +39,9 @@ export function actionGetCoins() {
 export const actionSaveExpenses = (infos) => ({
   type: SAVE_EXPENSES,
   infos,
+});
+
+export const removeItemAction = (newItens) => ({
+  type: REMOVE_ITEM,
+  newItens,
 });

@@ -3,17 +3,18 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 let soma = 0;
-let position = 0;
 
 class Header extends Component {
   render() {
     const { email, values } = this.props;
-    if (values[position] !== undefined) {
-      const { currency, value, exchangeRates } = values[position];
-      const finalAdd = (parseFloat(exchangeRates[currency].ask)) * value;
-      soma += finalAdd;
-      position += 1;
-    }
+    soma = 0;
+
+    values.forEach((obj) => {
+      const multiplyer = obj.exchangeRates[obj.currency].ask;
+      const ammount = obj.value;
+      soma += multiplyer * ammount;
+    });
+
     return (
       <div>
         <p data-testid="email-field">
