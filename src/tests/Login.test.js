@@ -23,5 +23,6 @@ describe("Testando a pagina de Login", () => {
 
     userEvent.click(button);
     expect(history.location.pathname).toBe('/carteira');
+
   });
 });

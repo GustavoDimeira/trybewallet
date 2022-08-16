@@ -1,9 +1,10 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { GET_COIN, SAVE_EXPENSES, REMOVE_ITEM } from '../actions';
+import { GET_COIN, SAVE_EXPENSES, REMOVE_ITEM, CHANGE_BUTTON } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  buttonEdit: [false, 0],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -34,6 +35,14 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [
         ...action.newItens,
+      ],
+    });
+  case CHANGE_BUTTON:
+    return ({
+      ...state,
+      buttonEdit: [
+        !state.buttonEdit[0],
+        action.position,
       ],
     });
   default:

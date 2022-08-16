@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { removeItemAction } from '../redux/actions';
+import { removeItemAction, changeButtonAction } from '../redux/actions';
 
 class Table extends Component {
-  removeItem = (expenses, item) => {
-    const { remove } = this.props;
-    remove(expenses.filter((expense) => expense.id !== item));
+  editItens = (id, expenses) => {
+    if (expenses !== undefined) {
+      const { remove } = this.props;
+      remove(expenses.filter((expense) => expense.id !== id));
+    } else {
+      const { changeButton } = this.props;
+      changeButton(id);
+    }
   };
 
   render() {
@@ -32,7 +37,6 @@ class Table extends Component {
           { expenses.map((expen, i) => (
             <tr
               key={ expen.id }
-              data-testid="a"
             >
               <td>{ expen.description }</td>
               <td>{ expen.tag }</td>
@@ -54,9 +58,16 @@ class Table extends Component {
                 <button
                   data-testid="delete-btn"
                   type="button"
-                  onClick={ () => this.removeItem(expenses, expen.id) }
+                  onClick={ () => this.editItens(expen.id, expenses) }
                 >
                   Excluir
+                </button>
+                <button
+                  data-testid="edit-btn"
+                  type="button"
+                  onClick={ () => this.editItens(i) }
+                >
+                  Editar
                 </button>
               </td>
             </tr>)) }
@@ -69,6 +80,7 @@ class Table extends Component {
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   remove: PropTypes.func.isRequired,
+  changeButton: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -77,6 +89,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   remove: (newItens) => dispatch(removeItemAction(newItens)),
+  changeButton: (position) => dispatch(changeButtonAction(position)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -9,6 +9,8 @@ export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 
+export const CHANGE_BUTTON = 'CHANGE_BUTTON';
+
 export const saveEmailAction = (email) => ({
   type: SAVE_EMAIL,
   email,
@@ -44,4 +46,9 @@ export const actionSaveExpenses = (infos) => ({
 export const removeItemAction = (newItens) => ({
   type: REMOVE_ITEM,
   newItens,
+});
+
+export const changeButtonAction = (position) => ({
+  type: CHANGE_BUTTON,
+  position,
 });
