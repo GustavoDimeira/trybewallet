@@ -52,7 +52,10 @@ class Login extends React.Component {
     const { email, password, disabled } = this.state;
 
     return (
-      <div>
+      <div className="loggin">
+        <h1 className="titleLogin">
+          Carteira Online
+        </h1>
         <form>
           <input
             type="email"
@@ -68,7 +71,10 @@ class Login extends React.Component {
             data-testid="password-input"
             placeholder="Senha"
           />
+          <br />
+          <br />
           <button
+            className="btn-loggin"
             type="submit"
             disabled={ disabled }
             onClick={ () => this.loggin(email) }

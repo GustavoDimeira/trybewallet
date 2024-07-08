@@ -48,7 +48,8 @@ export const removeItemAction = (newItens) => ({
   newItens,
 });
 
-export const changeButtonAction = (position) => ({
+export const changeButtonAction = (position, onOff) => ({
   type: CHANGE_BUTTON,
   position,
+  onOff,
 });

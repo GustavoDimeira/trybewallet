@@ -5,6 +5,13 @@ import PropTypes from 'prop-types';
 let soma = 0;
 
 class Header extends Component {
+  emailValidation = (email) => {
+    if (email === '') {
+      return ('Nenhum email cadastrado');
+    }
+    return email;
+  };
+
   render() {
     const { email, values } = this.props;
     soma = 0;
@@ -16,9 +23,9 @@ class Header extends Component {
     });
 
     return (
-      <div>
+      <header id="header">
         <p data-testid="email-field">
-          { email }
+          { this.emailValidation(email) }
         </p>
         <p data-testid="total-field">
           { soma.toFixed(2) }
@@ -26,7 +33,7 @@ class Header extends Component {
         <p data-testid="header-currency-field">
           BRL
         </p>
-      </div>
+      </header>
     );
   }
 }

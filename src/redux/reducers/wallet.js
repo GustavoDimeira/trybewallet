@@ -4,7 +4,7 @@ import { GET_COIN, SAVE_EXPENSES, REMOVE_ITEM, CHANGE_BUTTON } from '../actions'
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  buttonEdit: [false, 0],
+  buttonEdit: [false, Number],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -41,7 +41,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return ({
       ...state,
       buttonEdit: [
-        !state.buttonEdit[0],
+        action.onOff,
         action.position,
       ],
     });

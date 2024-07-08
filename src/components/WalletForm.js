@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { actionGetCoins, actionSaveExpenses, removeItemAction } from '../redux/actions';
+import { actionGetCoins, actionSaveExpenses, removeItemAction,
+  changeButtonAction } from '../redux/actions';
 
 const initialState = {
-  value: '',
+  value: Number(),
   description: '',
   currency: 'USD',
   method: 'Dinheiro',
@@ -58,7 +59,7 @@ class WalletForm extends Component {
 
   editItemFunc = (position) => {
     const { id, value, description, currency, method, tag } = this.state;
-    const { expenses, editItem } = this.props;
+    const { expenses, editItem, changeButton } = this.props;
     const edited = {
       ...expenses[position],
       value,
@@ -76,11 +77,13 @@ class WalletForm extends Component {
       ...initialState,
       exchangeRates: {},
     });
+
+    changeButton();
   };
 
   render() {
     const { value, description, method, tag, currency } = this.state;
-    const { coins, edit, editPosition } = this.props;
+    const { coins, edit, editPosition, changeButton } = this.props;
 
     return (
       <form>
@@ -162,18 +165,29 @@ class WalletForm extends Component {
         {
           !edit ? (
             <button
+              className="btn-add"
               type="button"
               onClick={ () => this.addIten() }
             >
               Adicionar despesa
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={ () => this.editItemFunc(editPosition) }
-            >
-              Editar despesa
-            </button>
+            <>
+              <button
+                className="btn-add"
+                type="button"
+                onClick={ () => this.editItemFunc(editPosition) }
+              >
+                Editar despesa
+              </button>
+              <button
+                className="btn-remove"
+                type="button"
+                onClick={ changeButton }
+              >
+                Cancelar Edição
+              </button>
+            </>
           )
         }
       </form>
@@ -184,6 +198,7 @@ class WalletForm extends Component {
 WalletForm.propTypes = {
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
   getCoins: PropTypes.func.isRequired,
+  changeButton: PropTypes.func.isRequired,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
@@ -197,6 +212,7 @@ const mapDispatchToProps = (dispatch) => ({
   getCoins: () => dispatch(actionGetCoins()),
   saveExpenses: (infos) => dispatch(actionSaveExpenses(infos)),
   editItem: (newItens) => dispatch(removeItemAction(newItens)),
+  changeButton: () => dispatch(changeButtonAction(Number, false)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

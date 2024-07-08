@@ -5,14 +5,13 @@ import PropTypes from 'prop-types';
 import { removeItemAction, changeButtonAction } from '../redux/actions';
 
 class Table extends Component {
-  editItens = (id, expenses) => {
-    if (expenses !== undefined) {
+  editItens = (id, boolean, expenses) => {
+    const { changeButton } = this.props;
+    if (expenses) {
       const { remove } = this.props;
       remove(expenses.filter((expense) => expense.id !== id));
-    } else {
-      const { changeButton } = this.props;
-      changeButton(id);
     }
+    changeButton(id, boolean);
   };
 
   render() {
@@ -20,7 +19,7 @@ class Table extends Component {
 
     return (
       <table>
-        <thead>
+        <thead className="main-th">
           <tr>
             <th>Descrição</th>
             <th>Tag</th>
@@ -38,10 +37,22 @@ class Table extends Component {
             <tr
               key={ expen.id }
             >
-              <td>{ expen.description }</td>
+              <td>
+                {
+                  (expen.description === '') ? (
+                    'Sem descrição'
+                  ) : (
+                    expen.description
+                  )
+                }
+              </td>
               <td>{ expen.tag }</td>
               <td>{ expen.method }</td>
-              <td>{ parseFloat(expen.value).toFixed(2) }</td>
+              <td>
+                {
+                  parseFloat(expen.value).toFixed(2)
+                }
+              </td>
               <td>{ expen.exchangeRates[expenses[i].currency].name }</td>
               <td>
                 {
@@ -56,16 +67,18 @@ class Table extends Component {
               <td>Real</td>
               <td>
                 <button
+                  className="btn-remove"
                   data-testid="delete-btn"
                   type="button"
-                  onClick={ () => this.editItens(expen.id, expenses) }
+                  onClick={ () => this.editItens(expen.id, false, expenses) }
                 >
                   Excluir
                 </button>
                 <button
+                  className="btn-edit"
                   data-testid="edit-btn"
                   type="button"
-                  onClick={ () => this.editItens(i) }
+                  onClick={ () => this.editItens(i, true) }
                 >
                   Editar
                 </button>
@@ -89,7 +102,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   remove: (newItens) => dispatch(removeItemAction(newItens)),
-  changeButton: (position) => dispatch(changeButtonAction(position)),
+  changeButton: (position, boolean) => dispatch(changeButtonAction(position, boolean)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
